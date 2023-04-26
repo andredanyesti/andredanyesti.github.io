@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+  <style>
+    /* COMMON */
+    .material-icons {
+    color: rgba(0,0,0,0.87);
+    }
+    .material-icons.md-36 {
+    font-size: 36px;
+    }
+    .material-icons.md-48 {
+    font-size: 48px;
+    }
+    .material-icons.tomato {
+    color: tomato;
+    }
+    .material-icons.royalblue {
+    color: royalblue;
+    }
+  </style>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            clifford: '#da373d',
+          }
+        }
+      }
+    }
+  </script>
+  <title>Invitation</title>
+</head>
+
+<body>
+  <div class="flex items-center justify-center h-screen">
+    <table class="table-auto" id="share-table">
+      <thead>
+        <tr class="text-left">
+          <th class="w-32">Name</th>
+          <th class="w-24">Group</th>
+          <th>Share</th>
+        </tr>
+      </thead>
+      <tbody>
+       
+      </tbody>
+    </table>
+  </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
+  integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+  $.get(
+    "https://script.google.com/macros/s/AKfycbxSfPMQqZcIcA4WprqA4CZUAOfdjioMZHlNJAcGuk5mPJ9FXe3wiiISFVazQyeRScYa/exec",
+    function (
+      res) {
+      var data = JSON.parse(res).filter((x) => x[0].length > 0 && x[0] != "Nama" && x[1] != "Group")
+      for (let i = 0; i < data.length; i++) {
+        const url =
+        `https://andredanyesti.github.io/?invitation=${data[i][0]}`
+        $('#share-table tr:last').after(`<tr>
+          <td>${data[i][0]}</td>
+          <td>${data[i][1]}</td>
+          <td><a href="${url}" target="_blank"><i class="material-icons  md-36">share</i></a></td>
+        </tr>`);
+      }
+    });
+</script>
+
+</html>
