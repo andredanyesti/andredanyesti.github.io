@@ -84,7 +84,9 @@
 		<!--Floating button-->
 		<div id="floating-button" class="float">
 			<div class="control-center open">
-
+				<div class="audio-play">
+					<div data-video="1SPP-nIbmu4" data-autoplay="0" data-loop="1" id="youtube-audio1"></div>
+				</div>
 				<ul class="right-sidebar">
 					<!--event-->
 					<li onclick="scrollToElement('fh5co-event')"
@@ -122,8 +124,8 @@
 					<div class="row">
 						<div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
 							<h1>Andre & Yesti</h1>
-							<p style="margin-bottom: 0">Kepada Bapak/Ibu/Saudara/i</p>
-							<p>Kami Mengundang Anda Untuk Hadir Di Acara Pernikahan Kami.</p>
+							<p style="margin-bottom: 0" class="invitation-name">Kepada Bapak/Ibu/Saudara/i</p>
+							<p>Kami Mengundang Kamu Untuk Hadir Di Acara Pernikahan Kami.</p>
 
 							<button class="btn btn-primary" id="open-invitation">Buka Undangan</button>
 						</div>
@@ -151,11 +153,12 @@
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
 						<h1>Andre & Yesti</h1>
-						<p style="color: #bf9b73">Kami berharap Anda menjadi bagian dari hari istimewa kami!</p>
+						<p style="color: #bf9b73">Kami berharap <b class="invitation-name-span"></b> menjadi bagian dari hari
+							istimewa kami!</p>
 						<div class="simply-countdown simply-countdown-wedding"></div>
 						<br>
 						<p>
-							<a href="https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=MHU2YXZ1ZGRhYnV1MmY1czExMTN2a2VnZTUgdHVrYW5nYmFzaWNAbQ"
+							<a href="https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=MHU2YXZ1ZGRhYnV1MmY1czExMTN2a2VnZTUgdHVrYW5nYmFzaWNAbQ&tmsrc=tukangbasic%40gmail.com"
 								target="_blank" class="btn btn-primary btn-sm">Save the date</a><br>
 							<i style="font-size: 15px">*Klik tombol ini untuk menyimpan tanggal pada google kalender</i>
 						</p>
@@ -215,9 +218,8 @@
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
 						<h2>Save The Date <a
-								href="https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=MHU2YXZ1ZGRhYnV1MmY1czExMTN2a2VnZTUgdHVrYW5nYmFzaWNAbQ"
-								target="_blank"
-								class="btn btn-info"><i class="icon-download2"></i></a></h2>
+								href="https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=MHU2YXZ1ZGRhYnV1MmY1czExMTN2a2VnZTUgdHVrYW5nYmFzaWNAbQ&tmsrc=tukangbasic%40gmail.com"
+								target="_blank" class="btn btn-info"><i class="icon-download2"></i></a></h2>
 					</div>
 				</div>
 				<div class="row">
@@ -288,7 +290,7 @@
 				<div class="row animate-box">
 					<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
 						<h2>Buku Tamu & Ucapan</h2>
-						<span style="color: #bf9b73">Doa Restu Anda merupakan karunia yang sangat berarti bagi kami.</span>
+						<span style="color: #bf9b73">Doa Restu Kamu merupakan karunia yang sangat berarti bagi kami.</span>
 					</div>
 				</div>
 
@@ -299,7 +301,8 @@
 				</div>
 
 				<div id="button-send" class="text-center animate-box">
-					<a href="https://forms.gle/XcxQmJgudhmXyS1W6" target="_blank" class="btn btn-primary btn-sm">Kirim
+					<a href="https://forms.gle/XcxQmJgudhmXyS1W6" target="_blank" class="btn btn-primary btn-sm"
+						id="send-form">Kirim
 						Ucapan</a><br>
 
 				</div>
@@ -334,8 +337,11 @@
 	</div>
 	<!--</div>-->
 	<div class="credit text-center" style="margin:80px 0;">
-		Ilustration Credits <a href="https://id.pngtree.com/fildzahnandya_30648123?type=1" target="_blank">Fildzahnandya</a> &
-		Base code Credits <a href="https://github.com/NgodingSolusi/the-wedding-of-rehan-maulidan" target="_blank">NgodingSolusi</a>
+		Ilustration Credits <a href="https://id.pngtree.com/fildzahnandya_30648123?type=1" target="_blank">Fildzahnandya</a>
+		&
+		Base code Credits <a href="https://github.com/NgodingSolusi/the-wedding-of-rehan-maulidan"
+			target="_blank">NgodingSolusi</a><br/>
+			Modify by <a href="https://edinofri.blogspot.com" target="_blank">Edinofri</a>
 	</div>
 	<div class="gototop js-top">
 		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
@@ -370,7 +376,23 @@
 	<script src="lib/lightgallery.js/dist/plugins/autoplay/lg-autoplay.min.js"></script>
 	<script src="lib/lightgallery.js/dist/plugins/fullscreen/lg-fullscreen.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.0.3/showdown.min.js"></script>
+	<script>
+		// handle query params
+		const urlParams = new URLSearchParams(window.location.search);
+		const invitation = urlParams.get('invitation');
+		// message
+		const default_msg = "Kepada Bapak/Ibu/Saudara/i";
+		const msg = invitation ? `Hi ${invitation}` : default_msg;
+		$('.invitation-name').text(msg);
+		// replace `anda`
+		const default_you = "Anda"
+		$('.invitation-name-span').text(invitation ? invitation : "Anda");
 
+		// send form
+		const invitation_form =
+			`https://docs.google.com/forms/d/e/1FAIpQLSdx1vZUXBURCI83UoJ7b8ujhR6yiag6UKFozV8dmEcSAKjadw/viewform?usp=pp_url&entry.14946344=${invitation}`
+		$('#send-form').attr('href', invitation ? invitation_form : "https://forms.gle/XcxQmJgudhmXyS1W6")
+	</script>
 	<script>
 		day = 3;
 		month = 5;
@@ -419,6 +441,76 @@
 			$("html, body").animate({
 				scrollTop: $(`#${el}`).offset().top
 			}, 1000);
+		}
+	</script>
+	<script>
+		// 2. This code loads the IFrame Player API code asynchronously.
+		var tag = document.createElement('script');
+
+		tag.src = "https://www.youtube.com/iframe_api";
+		var firstScriptTag = document.getElementsByTagName('script')[0];
+		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+		// 3. This function creates an <iframe> (and YouTube player)
+		//    after the API code downloads.
+		var player1;
+
+		function onYouTubeIframeAPIReady() {
+
+			var ctrlq1 = document.getElementById("youtube-audio1");
+			ctrlq1.innerHTML = '<img id="youtube-icon1" src=""/><div id="youtube-player1"></div>';
+			ctrlq1.style.cssText = 'width:20px;margin:0 auto;cursor:pointer;cursor:hand;display:none';
+			ctrlq1.onclick = toggleAudio1;
+
+			player1 = new YT.Player('youtube-player1', {
+				height: '0',
+				width: '0',
+				videoId: ctrlq1.dataset.video,
+				playerVars: {
+					autoplay: 1,
+					loop: ctrlq1.dataset.loop,
+				},
+				events: {
+					'onReady': onPlayerReady1,
+					'onStateChange': onPlayerStateChange1
+				}
+			});
+		}
+
+		function togglePlayButton1(play) {
+			document.getElementById("youtube-icon1").src = play ? "images/pause.png" :
+				"images/play.png";
+		}
+
+		function toggleAudio1() {
+			if (player1.getPlayerState() == 1 || player1.getPlayerState() == 3) {
+				player1.pauseVideo();
+				togglePlayButton1(false);
+			} else {
+				player1.playVideo();
+				togglePlayButton1(true);
+			}
+		}
+
+		function playAudio1() {
+			if (!(player1.getPlayerState() == 1 || player1.getPlayerState() == 3)) {
+				player1.playVideo();
+				togglePlayButton1(true);
+			}
+		}
+
+		function onPlayerReady1(event) {
+			player1.setPlaybackQuality("small");
+			document.getElementById("youtube-audio1").style.display = "block";
+			togglePlayButton1(true);
+			// autoplay audio
+			event.target.playVideo();
+		}
+
+		function onPlayerStateChange1(event) {
+			if (event.data === 0) {
+				togglePlayButton1(false);
+			}
 		}
 	</script>
 </body>
