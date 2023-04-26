@@ -5,23 +5,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   <style>
     /* COMMON */
     .material-icons {
-    color: rgba(0,0,0,0.87);
+      color: rgba(0, 0, 0, 0.87);
     }
+
     .material-icons.md-36 {
-    font-size: 36px;
+      font-size: 36px;
     }
+
     .material-icons.md-48 {
-    font-size: 48px;
+      font-size: 48px;
     }
+
     .material-icons.tomato {
-    color: tomato;
+      color: tomato;
     }
+
     .material-icons.royalblue {
-    color: royalblue;
+      color: royalblue;
     }
   </style>
   <script>
@@ -40,16 +45,17 @@
 
 <body>
   <div class="flex items-center justify-center h-screen">
-    <table class="table-auto" id="share-table">
+    <table class="table-auto border-collapse border border-gray-500" id="share-table">
       <thead>
-        <tr class="text-left">
-          <th class="w-32">Name</th>
-          <th class="w-24">Group</th>
-          <th>Share</th>
+        <tr class="bg-gray-200">
+          <th class="w-32 h-30 px-4 py-2 border border-gray-500">Name</th>
+          <th class="w-24 px-4 py-2 border border-gray-500">Group</th>
+          <th class="px-4 py-2 border border-gray-500">Share</th>
+          <th class="px-4 py-2 border border-gray-500">Copy</th>
         </tr>
       </thead>
       <tbody>
-       
+
       </tbody>
     </table>
   </div>
@@ -57,6 +63,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
   integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
   crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 <script>
   $.get(
     "https://script.google.com/macros/s/AKfycbxSfPMQqZcIcA4WprqA4CZUAOfdjioMZHlNJAcGuk5mPJ9FXe3wiiISFVazQyeRScYa/exec",
@@ -65,14 +72,31 @@
       var data = JSON.parse(res).filter((x) => x[0].length > 0 && x[0] != "Nama" && x[1] != "Group")
       for (let i = 0; i < data.length; i++) {
         const url =
-        `https://andredanyesti.github.io/?invitation=${data[i][0]}`
+          `https://andredanyesti.github.io/?invitation=${data[i][0]}`
         $('#share-table tr:last').after(`<tr>
-          <td>${data[i][0]}</td>
-          <td>${data[i][1]}</td>
-          <td><a href="${url}" target="_blank"><i class="material-icons  md-36">share</i></a></td>
+          <td class="px-4 py-2 border border-gray-500">${data[i][0]}</td>
+          <td class="px-4 py-2 border border-gray-500">${data[i][1]}</td>
+          <td class="px-4 py-2 border border-gray-500"><a href="${url}" target="_blank"><i class="material-icons  md-36">share</i></a> </td>
+          <td class="px-4 py-2 border border-gray-500"><button
+                  onclick="copyToClipboard('${url}')"><i class="material-icons  md-36">content_copy</i></button></td>
         </tr>`);
       }
     });
+
+  function copyToClipboard(text) {
+    var $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val(text).select();
+    document.execCommand("copy");
+    $temp.remove();
+    Toastify({
+      text: "Copy To Clipboard",
+      duration: 2000,
+        gravity: "bottom", // `top` or `bottom`
+        position: "center",
+
+    }).showToast();
+  }
 </script>
 
 </html>
