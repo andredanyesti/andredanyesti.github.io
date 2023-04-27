@@ -2337,3 +2337,6 @@ fadeIn {  from {
 }
 
 /*# sourceMappingURL=style.css.map */
+.comment p {
+  margin: 8px 0 4px 0;
+}

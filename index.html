@@ -421,13 +421,17 @@
 			"https://script.google.com/macros/s/AKfycbxnrjDN8751lNHfsbJUlbGNvQwqoYAzCAVM16iHGgaA1YhXpk8RB90WgNQBXRvaR4vZ7A/exec",
 			function (
 				res) {
-				var data = JSON.parse(res).filter((x) => x[0].length > 0 && x[0] != "Timestamp" && x[4] == "Boleh")
+				var data = JSON.parse(res).filter((x) => x[0].length > 0 && x[0] != "Timestamp" && x[4] ==
+				"Boleh").reverse();
 				for (let i = 0; i < data.length; i++) {
 					const item = `
 				<a class="list-group-item">
-					<div class="name"><span class="strong" style="font-size: 24px">${data[i][1]}</span></div>
-					<hr style="margin-top: 0;">
-					<span class="label label-success">${data[i][2]}</span>
+					<div class="name">
+						<span class="strong" style="font-size: 24px">${data[i][1]}</span>
+						<span class="label ${data[i][2] === "Hadir"?"label-success":"label-warning"}" style="float:right">${data[i][2]}</span>
+
+					</div>
+					<hr style="margin: 0;">
 					<div class="comment">${new showdown.Converter().makeHtml(data[i][3])}</div>
 				</a>
 			`;
